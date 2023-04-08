@@ -2,8 +2,8 @@ import streamlit as st
 import joblib
 import os
 
-spam_clf = joblib.load(open(os.getcwd() + '/notebooks/models/spam_detector_model.pkl', 'rb'))
-vectorizer = joblib.load(open(os.getcwd() + '/notebooks/models/vectorizer.pkl', 'rb'))
+spam_clf = joblib.load(open(os.getcwd() + '/notebook/models/spam_detector_model.pkl', 'rb'))
+vectorizer = joblib.load(open(os.getcwd() + '/notebook/models/vectorizer.pkl', 'rb'))
 
 
 def main(title="Your Awesome Streamlit Text classification App".upper()):
@@ -16,10 +16,7 @@ def main(title="Your Awesome Streamlit Text classification App".upper()):
         text_message = st.text_input("Please enter your message")
         if st.button("Predict"):
             prediction = spam_clf.predict(vectorizer.transform([text_message]))
-            if prediction[0] == 0:
-                info = 'Ham'
-            else:
-                info = 'Spam'
+            info = 'Ham' if prediction[0] == 0 else 'Spam'
             st.success(f'Prediction: {info}')
 
 
